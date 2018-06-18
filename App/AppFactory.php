@@ -22,18 +22,7 @@ use Scheduler\Scheduler;
  */
 class AppFactory
 {
-    /**
-     * @var \AMQPChannel
-     */
-    private $amqpChannel;
-
-    public function __destruct()
-    {
-        if ($this->amqpChannel) {
-            $this->amqpChannel->close();
-        }
-    }
-
+    
     /**
      * @throws \AMQPConnectionException
      *
@@ -41,13 +30,9 @@ class AppFactory
      */
     public function getAMQPChannel(): \AMQPChannel
     {
-        if (!$this->amqpChannel) {
-            $connection = new \AMQPConnection(['host' => 'localhost', 'login' => 'sms', 'password' => 'sms']);
-            $connection->pconnect();
-            $this->amqpChannel = new \AMQPChannel($connection);
-        }
-
-        return $this->amqpChannel;
+        $connection = new \AMQPConnection(['host' => 'localhost', 'login' => 'guest', 'password' => 'guest']);
+        $connection->pconnect();
+        return new \AMQPChannel($connection);
     }
 
     /**
