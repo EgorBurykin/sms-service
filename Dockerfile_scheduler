@@ -1,4 +1,4 @@
-FROM c5jett/php7.2-amqp-composer
+FROM c5jett/php7.2-fpm-amqp-composer
 
 MAINTAINER "c5jett <C5.Jett@gmail.com>"
 
