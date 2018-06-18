@@ -56,8 +56,8 @@ class Request
 
     private function toHex($str) {
         $bin = '';
-        for($i = 0; $i < strlen($str); $i++) {
-            $bin .= $this->dechex($str[$i]);
+        for ($i = 0; $i < strlen($str); $i++) {
+            $bin .= $this->dechex(ord($str[$i]));
         }
         return $bin;
     }

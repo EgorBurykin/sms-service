@@ -1,3 +1,5 @@
 **/docker
 Dockerfile_scheduler
 Dockerfile_executor
+vendor
+bin

@@ -36,7 +36,6 @@ class OneSecondExecutor implements Executor
     {
         $this->scheduler->consume(function (SMSMessage $message) {
             $this->makeRequest(new Request($message));
-
             return true;
         });
     }

@@ -1,13 +1,6 @@
-FROM php:7.2-stretch
+FROM c5jett/php7.2-amqp-composer
 
-MAINTAINER "Egor Burykin <egor.burykin@avesystems.ru>"
-
-RUN apt-get update && apt-get install -y librabbitmq-dev libssh-dev git wget \
-    && docker-php-ext-install opcache bcmath sockets \
-    && pecl install amqp \
-&& docker-php-ext-enable amqp
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+MAINTAINER "c5jett <C5.Jett@gmail.com>"
 
 WORKDIR /app
 

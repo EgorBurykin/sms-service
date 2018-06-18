@@ -30,7 +30,11 @@ class AppFactory
      */
     public function getAMQPChannel(): \AMQPChannel
     {
-        $connection = new \AMQPConnection(['host' => 'rabbitmq', 'login' => 'guest', 'password' => 'guest']);
+        $connection = new \AMQPConnection([
+            'host' => Config::QUEUE_HOST,
+            'login' => Config::QUEUE_USER,
+            'password' => Config::QUEUE_PASSWORD
+        ]);
         $connection->pconnect();
         return new \AMQPChannel($connection);
     }
@@ -47,7 +51,7 @@ class AppFactory
     public function getAMQPExchange(\AMQPChannel $channel): \AMQPExchange
     {
         $exchange = new \AMQPExchange($channel);
-        $exchange->setName('sms');
+        $exchange->setName(Config::QUEUE_NAME);
         $exchange->setType(AMQP_EX_TYPE_DIRECT);
         $exchange->setFlags(AMQP_DURABLE);
         $exchange->declareExchange();
@@ -67,10 +71,10 @@ class AppFactory
     public function getAMQPQueue(\AMQPChannel $channel): \AMQPQueue
     {
         $queue = new \AMQPQueue($channel);
-        $queue->setName('sms');
+        $queue->setName(Config::QUEUE_NAME);
         $queue->setFlags(AMQP_DURABLE);
         $queue->declareQueue();
-        $queue->bind('sms');
+        $queue->bind(Config::QUEUE_NAME);
 
         return $queue;
     }
@@ -117,7 +121,7 @@ class AppFactory
 
     public function getClient()
     {
-        $client = new \MessageBird\Client('YOUR_ACCESS_KEY');
+        $client = new \MessageBird\Client(Config::API_KEY);
 
         return $client->messages;
     }
