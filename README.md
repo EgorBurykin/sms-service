@@ -9,7 +9,7 @@ JSON object should contain fields:
  * `body` - Body of message. Should be less than or equal 39015 bytes.
 
 ### How to use
-Pre:
+Prerequisites:
 * Docker is installed
 * Bash
 
@@ -20,7 +20,7 @@ To deploy service, please run:
 chmod +x deploy.sh
 ./deploy.sh
 docker stack services smsservice 
-# after few seconds there should be 4 healthy servces
+# after few seconds there should be 4 healthy services:
 # nginx, scheduler, rabbitmq, executor
 ```
 To test:
@@ -32,19 +32,20 @@ curl -d '{"body":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vesti
 ```
 
 ### Notes
-There is three services:
+There are three services:
 * *Scheduler*. This service accepts HTTP request with SMS and schedules it for delivery.
 * *Message Queue*. This service stores incoming messages and allows executor to send
 them.
-* *Executor*. This service send messages using MessageBird API.
+* *Executor*. This service sends messages using MessageBird API.
 
-There is no monitoring service, and also you are blind about message delivery.
+There is no monitoring service, and also you are blind about message delivery status.
 
 ### TODO
-As it is simplified solution there are still a lot to do:
+As it is simplified solution there is still a lot to do:
 * Detach configuration properly.
 * Handle connection failures in Executor and Scheduler to avoid cascade failure.
 * Use appropriate DIC. Consider moving this solution to Symfony.
 * Configure restart policies and organize monitoring.
-* Use Alpine Linux as container OS.
+* Use Alpine Linux as container OS. Right now Debian Stretch is used because it has
+ less problems with PECL AMQP extension.
 
