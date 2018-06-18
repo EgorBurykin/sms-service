@@ -30,3 +30,4 @@ As it is simplified solution there are still a lot to do:
 * Handle connection failures in Executor and Scheduler to avoid cascade failure.
 * Detach configuration and use appropriate DIC. Consider moving this solution to Symfony.
 * Configure restart policies and organize monitoring.
+

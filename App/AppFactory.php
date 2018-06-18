@@ -30,7 +30,7 @@ class AppFactory
      */
     public function getAMQPChannel(): \AMQPChannel
     {
-        $connection = new \AMQPConnection(['host' => 'localhost', 'login' => 'guest', 'password' => 'guest']);
+        $connection = new \AMQPConnection(['host' => 'rabbitmq', 'login' => 'guest', 'password' => 'guest']);
         $connection->pconnect();
         return new \AMQPChannel($connection);
     }
