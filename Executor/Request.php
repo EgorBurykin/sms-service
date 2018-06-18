@@ -42,7 +42,7 @@ class Request
                 $msg = new Message();
                 $msg->originator = $message->originator;
                 $msg->recipients = $message->recipients;
-                $msg->setBinarySms(implode('', $udh), $part);
+                $msg->setBinarySms(implode('', $udh), $this->toHex($part));
                 $this->messages[] = $msg;
                 ++$partNo;
             }
@@ -52,6 +52,14 @@ class Request
     public function getParts()
     {
         return $this->messages;
+    }
+
+    private function toHex($str) {
+        $bin = '';
+        for($i = 0; $i < strlen($str); $i++) {
+            $bin .= $this->dechex($str[$i]);
+        }
+        return $bin;
     }
 
     private function dechex($ref)
